@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: octoprint
+  labels:
+    app: octoprint
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: octoprint
+  template:
+    metadata:
+      labels:
+        app: octoprint
+    spec:
+      nodeSelector:
+        location: 3dprinter
+      containers:
+      - name: octoprint
+        image: octoprint/octoprint
+        env:
+          - name: ENABLE_MJPG_STREAMER
+            value: 'false'
+        securityContext:
+          privileged: true
+        resources:
+          limits:
+            memory: 3500Mi
+            cpu: 2000m
+      volumeMounts:
+        - mountPath: /octoprint
+          name: octoprint
+          readOnly: false
+        - mountPath: /dev/ttyACM0
+          name: ttyacm0
+          readOnly: false
+    volumes:
+      - name: octoprint
+        persistentVolumeClaim:
+          claimName: octoprint
+      - name: ttyacm0
+        hostPath:
+          path: /dev/ttyACM0
