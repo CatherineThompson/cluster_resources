@@ -1,23 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: octoprint-c-lan
-  annotations:
-    nginx.org/redirect-to-https: "False"
-    ingress.kubernetes.io/ssl-redirect: "False"
-    nginx.ingress.kubernetes.io/ssl-redirect: "False"
-    nginx.ingress.kubernetes.io/proxy-body-size: 800m
+  name: octopi-http-ingress
 spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - ender.local
   rules:
-  - host: ender.local
-    http:
+  - http:
       paths:
       - path: /
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: octoprint-svc
