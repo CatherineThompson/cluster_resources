@@ -32,8 +32,8 @@ spec:
           - mountPath: /octoprint
             name: octoprint
             readOnly: false
-          - mountPath: /dev/ttyACM0
-            name: ttyacm0
+          - mountPath: /dev/ttyUSB0
+            name: ttyusb0
             readOnly: false
           - mountPath: /dev/video0
             name: video0
@@ -42,9 +42,9 @@ spec:
         - name: octoprint
           persistentVolumeClaim:
             claimName: octoprint
-        - name: ttyacm0
+        - name: ttyusb0
           hostPath:
-            path: /dev/ttyACM0
+            path: /dev/ttyUSB0
         - name: video0
           hostPath:
             path: /dev/video0
