@@ -35,16 +35,11 @@ spec:
           - mountPath: /dev/ttyUSB0
             name: ttyusb0
             readOnly: false
-          - mountPath: /dev/video0
-            name: video0
-            readOnly: false
       volumes:
         - name: octoprint
           persistentVolumeClaim:
             claimName: octoprint
         - name: ttyusb0
           hostPath:
+            type: BlockDevice
             path: /dev/ttyUSB0
-        - name: video0
-          hostPath:
-            path: /dev/video0
